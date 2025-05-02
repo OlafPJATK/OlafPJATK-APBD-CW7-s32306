@@ -11,6 +11,7 @@ public interface IDbService
 {
     Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id);
     Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync();
+    Task<Client> CreateClientAsync(ClientCreateDTO client);
 }
 
 public class DbService : IDbService
@@ -38,5 +39,10 @@ public class DbService : IDbService
     public async Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync()
     {
         return await _tripsDbRepository.GetAllTripsAsync();
+    }
+
+    public Task<Client> CreateClientAsync(ClientCreateDTO client)
+    {
+        return _tripsDbRepository.CreateClientAsync(client);
     }
 }

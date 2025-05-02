@@ -11,6 +11,7 @@ public interface ITripsDbRepository
     Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id);
     
     Task<Client> GetClientById(int id);
+    Task<Client> CreateClientAsync(ClientCreateDTO client);
 }
 
 public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
@@ -92,6 +93,36 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
         await connection.OpenAsync();
         command.Parameters.AddWithValue("@id", id);
         await using var reader = await command.ExecuteReaderAsync();
-        return await reader.ReadAsync() ? new Client {IdClient = reader.GetInt32(0)} : null;
+        return await reader.ReadAsync() ? new Client
+        {
+            IdClient = reader.GetInt32(0),
+           
+        } : null;
+    }
+
+    public async Task<Client> CreateClientAsync(ClientCreateDTO client)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "insert into Client (FirstName, LastName, Email, Telephone,Pesel) values (@FirstName, @LastName, @Email, @Telephone,@Pesel); Select scope_identity()";
+        await connection.OpenAsync();
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@FirstName", client.FirstName);
+        command.Parameters.AddWithValue("@LastName", client.LastName);
+        command.Parameters.AddWithValue("@Email", client.Email);
+        command.Parameters.AddWithValue("@Telephone", client.Telephone);
+        command.Parameters.AddWithValue("@Pesel", client.Pesel);
+        var id = Convert.ToInt32(await command.ExecuteScalarAsync());
+
+        return new Client
+        {
+
+            IdClient = id,
+            FirstName = client.FirstName,
+            LastName = client.LastName,
+            Email = client.Email,
+            Telephone = client.Telephone,
+            Pesel = client.Pesel
+
+        };
     }
 }

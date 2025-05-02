@@ -4,7 +4,7 @@ namespace APBD_CW_API2.Controllers;
 
 
 [ApiController]
-[Route("[Controller]")]
+[Route("api/[Controller]")]
 public class TripsController(IDbService dbService) : ControllerBase
 {
     
