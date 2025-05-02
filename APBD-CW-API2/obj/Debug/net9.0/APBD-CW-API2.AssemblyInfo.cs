@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APBD-CW-API2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82fc5dcc25d73e171009a486726cb65e35b17d14")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42a7a09f031b0b6ea63b05d9781b9586ba3215d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("APBD-CW-API2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APBD-CW-API2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

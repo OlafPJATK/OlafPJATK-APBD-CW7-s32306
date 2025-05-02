@@ -1,5 +1,9 @@
-﻿using APBD_CW_API2.Models.DTOs;
+﻿using APBD_CW_API2.Exceptions;
+using APBD_CW_API2.Models;
+using APBD_CW_API2.Models.DTOs;
+using APBD_CW_API2.Repositories;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 
 namespace APBD_CW_API2.Services;
 
@@ -9,72 +13,30 @@ public interface IDbService
     Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync();
 }
 
-public class DbService(IConfiguration config) : IDbService
+public class DbService : IDbService
 {
-    private readonly string? _connectionString=config.GetConnectionString("Default");
-    
-    public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id)
+   private readonly ITripsDbRepository _tripsDbRepository;
+
+   public DbService(ITripsDbRepository tripsDbRepository)
+   {
+       _tripsDbRepository = tripsDbRepository;
+   }
+
+   public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id)
     {
-        var result = new List<TripByClientIdGetDTO>();
+        var client = await _tripsDbRepository.GetClientById(id);
+        if (client == null) throw new NotFoundException("Client does not exist.");
         
-        await using var connection = new SqlConnection(_connectionString);
-        
-        const string sql = "SELECT\n\n\tTrip.IdTrip,\n    Trip.Name,\n    Trip.Description,\n  " +
-                           "  Trip.DateFrom,\n    Trip.DateTo,\n  " +
-                           "  Trip.MaxPeople,\n    Client_Trip.RegisteredAt,\n  " +
-                           "  Client_Trip.PaymentDate\nFROM \n    Client\nJOIN \n  " +
-                           "  Client_Trip ON Client.IdClient = Client_Trip.IdClient\nJOIN \n  " +
-                           "  Trip ON Client_Trip.IdTrip = Trip.IdTrip\nWHERE \n    Client.IdClient = @id;\n";
-        await using var command = new SqlCommand(sql, connection);
-        await connection.OpenAsync();
-        command.Parameters.AddWithValue("@id", id);
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
+        var trips = await _tripsDbRepository.GetTripsByClientIdAsync(id);
+        if (trips.IsNullOrEmpty())
         {
-            
-            result.Add(
-                new TripByClientIdGetDTO
-                {
-                    IdTrip = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    Description = reader.GetString(2),
-                    DateFrom = reader.GetDateTime(3),
-                    DateTo = reader.GetDateTime(4),
-                    MaxPeople = reader.GetInt32(5),
-                    RegisteredAt = reader.GetInt32(6),
-                    PaymentDate =reader.IsDBNull(7) ? null : reader.GetInt32(7)
-                });
+            throw new NotFoundException("Client has no trips.");
         }
-        return result;
+        return trips;
     }
     
     public async Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync()
     {
-        var result = new List<TripCountryGetDTO>();
-        
-        await using var connection = new SqlConnection(_connectionString);
-
-        const string sql = "\nSELECT \n\tTrip.IdTrip,\n    Trip.Name,\n    Trip.Description,\n    Trip.DateFrom,\n" +
-                           "    Trip.DateTo,\n    Trip.MaxPeople,\n    Country.Name\nFROM \n    Trip\nJOIN \n" +
-                           "    Country_Trip ON Trip.IdTrip = Country_Trip.IdTrip\nJOIN \n" +
-                           "    Country ON Country_Trip.IdCountry = Country.IdCountry;\n";
-        await using var command = new SqlCommand(sql, connection);
-        await connection.OpenAsync();
-        await using var reader = await command.ExecuteReaderAsync();
-        while (await reader.ReadAsync())
-        {
-            result.Add(
-                new TripCountryGetDTO
-                {
-                    IdTrip = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    Description = reader.GetString(2),
-                    DateFrom = reader.GetDateTime(3),
-                    DateTo = reader.GetDateTime(4),
-                    MaxPeople = reader.GetInt32(5),
-                    CountryName = reader.GetString(6)
-                });
-        }
-        return result;
+        return await _tripsDbRepository.GetAllTripsAsync();
     }
 }

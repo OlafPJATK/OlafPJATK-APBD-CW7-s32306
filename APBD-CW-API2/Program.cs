@@ -1,4 +1,5 @@
 
+using APBD_CW_API2.Repositories;
 using APBD_CW_API2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddTransient<ITripsDbRepository, TripsDbRepository>();
 builder.Services.AddTransient<IDbService, DbService>();
+
 
 var app = builder.Build();
 
