@@ -10,6 +10,6 @@ public class ClientsController(IDbService dbService) : ControllerBase
     public async Task<IActionResult> GetClientTripsByClientId(
         [FromRoute] int id)
     {
-     return Ok(await dbService.GetClientTripsByClientIdAsync(id));
+     return Ok(await dbService.GetTripsByClientIdAsync(id));
     }
 }

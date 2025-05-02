@@ -1,6 +1,6 @@
 ﻿namespace APBD_CW_API2.Models.DTOs;
 
-public class TripPlusCountryInfoGetDTO
+public class TripCountryGetDTO
 {
     public int IdTrip { get; set; }
     public string Name { get; set; }

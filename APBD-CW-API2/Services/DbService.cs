@@ -5,45 +5,52 @@ namespace APBD_CW_API2.Services;
 
 public interface IDbService
 {
-    Task<IEnumerable<TripPlusCountryInfoGetDTO>> GetClientTripsByClientIdAsync(int id);
-    Task<IEnumerable<TripPlusCountryInfoGetDTO>> GetAllTripsAsync();
+    Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id);
+    Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync();
 }
 
 public class DbService(IConfiguration config) : IDbService
 {
     private readonly string? _connectionString=config.GetConnectionString("Default");
-
-
-    public async Task<IEnumerable<TripPlusCountryInfoGetDTO>> GetClientTripsByClientIdAsync(int id)
+    
+    public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id)
     {
-        var result = new List<TripPlusCountryInfoGetDTO>();
+        var result = new List<TripByClientIdGetDTO>();
         
         await using var connection = new SqlConnection(_connectionString);
         
-        const string sql = "SELECT T.*\nFROM Client_Trip CT\nJOIN Trip T ON CT.IdTrip = T.IdTrip\n WHERE CT.IdClient = 1;\n";
+        const string sql = "SELECT\n\n\tTrip.IdTrip,\n    Trip.Name,\n    Trip.Description,\n  " +
+                           "  Trip.DateFrom,\n    Trip.DateTo,\n  " +
+                           "  Trip.MaxPeople,\n    Client_Trip.RegisteredAt,\n  " +
+                           "  Client_Trip.PaymentDate\nFROM \n    Client\nJOIN \n  " +
+                           "  Client_Trip ON Client.IdClient = Client_Trip.IdClient\nJOIN \n  " +
+                           "  Trip ON Client_Trip.IdTrip = Trip.IdTrip\nWHERE \n    Client.IdClient = @id;\n";
         await using var command = new SqlCommand(sql, connection);
         await connection.OpenAsync();
         command.Parameters.AddWithValue("@id", id);
         await using var reader = await command.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
+            
             result.Add(
-                new TripPlusCountryInfoGetDTO
+                new TripByClientIdGetDTO
                 {
                     IdTrip = reader.GetInt32(0),
                     Name = reader.GetString(1),
                     Description = reader.GetString(2),
                     DateFrom = reader.GetDateTime(3),
                     DateTo = reader.GetDateTime(4),
-                    MaxPeople = reader.GetInt32(5)
+                    MaxPeople = reader.GetInt32(5),
+                    RegisteredAt = reader.GetInt32(6),
+                    PaymentDate =reader.IsDBNull(7) ? null : reader.GetInt32(7)
                 });
         }
         return result;
     }
     
-    public async Task<IEnumerable<TripPlusCountryInfoGetDTO>> GetAllTripsAsync()
+    public async Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync()
     {
-        var result = new List<TripPlusCountryInfoGetDTO>();
+        var result = new List<TripCountryGetDTO>();
         
         await using var connection = new SqlConnection(_connectionString);
 
@@ -57,7 +64,7 @@ public class DbService(IConfiguration config) : IDbService
         while (await reader.ReadAsync())
         {
             result.Add(
-                new TripPlusCountryInfoGetDTO
+                new TripCountryGetDTO
                 {
                     IdTrip = reader.GetInt32(0),
                     Name = reader.GetString(1),
