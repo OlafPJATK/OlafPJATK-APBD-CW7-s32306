@@ -9,7 +9,7 @@ namespace APBD_CW_API2.Controllers;
 [Route("api/[Controller]")]
 public class ClientsController(IDbService dbService) : ControllerBase
 {
-    // Zwraca listę wycieczek, w których uczestniczy dany klient
+    // Zwraca listę wycieczek,  w których uczestniczy dany klient
     [HttpGet("{id}/trips")]
     public async Task<IActionResult> GetTripsByClientId([FromRoute] int id)
     {
