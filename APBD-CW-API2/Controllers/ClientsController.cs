@@ -4,13 +4,14 @@ using APBD_CW_API2.Services;
 using Microsoft.AspNetCore.Mvc;
 namespace APBD_CW_API2.Controllers;
 
+// Kontroler obsługujący operacje związane z klientami i ich wycieczkami
 [ApiController]
 [Route("api/[Controller]")]
 public class ClientsController(IDbService dbService) : ControllerBase
 {
-    [HttpGet ("{id}")]
-    public async Task<IActionResult> GetTripsByClientId(
-        [FromRoute] int id)
+    // Zwraca listę wycieczek, w których uczestniczy dany klient
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetTripsByClientId([FromRoute] int id)
     {
         try
         {
@@ -20,9 +21,9 @@ public class ClientsController(IDbService dbService) : ControllerBase
         {
             return NotFound(e.Message);
         }   
-        
     }
-    
+
+    // Tworzy nowego klienta w systemie
     [HttpPost]
     public async Task<IActionResult> CreateClient([FromBody] ClientCreateDTO body)
     {
@@ -35,18 +36,16 @@ public class ClientsController(IDbService dbService) : ControllerBase
         {
             return BadRequest(e.Message);
         }
-       
     }
 
+    // Dodaje istniejącego klienta do wycieczki
     [HttpPut("{id}/trips/{tripId}")]
     public async Task<IActionResult> AddClientToTrip([FromRoute] int id, [FromRoute] int tripId)
     {
         try
         {
             await dbService.AddClientToTripAsync(id, tripId);
-            return Ok(
-                new { Message = $"Dodano klienta {id} do wycieczki {tripId}." }
-                );
+            return Ok(new { Message = $"Dodano klienta {id} do wycieczki {tripId}." });
         }
         catch (BadRequestException e)
         {
@@ -57,18 +56,19 @@ public class ClientsController(IDbService dbService) : ControllerBase
             return NotFound(e.Message);
         }
     }
+
+    // Usuwa klienta z przypisanej wycieczki
     [HttpDelete("{id}/trips/{tripId}")]
     public async Task<IActionResult> RemoveClientFromTrip([FromRoute] int id, [FromRoute] int tripId)
     {
         try
         {
             await dbService.RemoveClientFromTripAsync(id, tripId);
-            return Ok("Usunięto klienta z wycieczki.");
+            return Ok("Usunięto klienta z wycieczki.");
         }
         catch (NotFoundException e)
         {
             return NotFound(e.Message);
         }
     }
-
 }
