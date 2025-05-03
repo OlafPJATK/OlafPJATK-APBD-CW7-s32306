@@ -7,21 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd33c8dc-beb6-43ad-b73f-d3f0dc44ed80" name="Changes" comment="4. cale">
+    <list default="true" id="cd33c8dc-beb6-43ad-b73f-d3f0dc44ed80" name="Changes" comment="5 cale">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/Controllers/ClientsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/Controllers/ClientsController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/Repositories/TripsDbRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/Repositories/TripsDbRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/Services/DbService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/Services/DbService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.exe" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/ref/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/ref/APBD-CW-API2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/refint/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/refint/APBD-CW-API2.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +71,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1746254501856</updated>
-      <workItem from="1746254502908" duration="7345000" />
+      <workItem from="1746254502908" duration="8145000" />
     </task>
     <task id="LOCAL-00001" summary="4. cale">
       <option name="closed" value="true" />
@@ -94,7 +81,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746260321456</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="5 cale">
+      <option name="closed" value="true" />
+      <created>1746263221989</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1746263221989</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +99,7 @@
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="4. cale" />
-    <option name="LAST_COMMIT_MESSAGE" value="4. cale" />
+    <MESSAGE value="5 cale" />
+    <option name="LAST_COMMIT_MESSAGE" value="5 cale" />
   </component>
 </project>
