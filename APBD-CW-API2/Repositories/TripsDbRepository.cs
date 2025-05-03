@@ -151,7 +151,7 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
     public async Task<Int32> GetPersonCountByTripId(int id)
     {
         await using var connection = new SqlConnection(_connectionString);
-        const string sql = "SELECT COUNT(*) AS LiczbaUczestnikow\nFROM Client_Trip\nWHERE IdTrip = 5;";
+        const string sql = "SELECT COUNT(*) AS LiczbaUczestnikow\nFROM Client_Trip\nWHERE IdTrip = @id;";
         await using var command = new SqlCommand(sql, connection);
         await connection.OpenAsync();
         command.Parameters.AddWithValue("@id", id);
