@@ -28,7 +28,7 @@ public class DbService : IDbService
 
    public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id) 
     {
-        var client = await _tripsDbRepository.GetClientById(id);
+        var client = await _tripsDbRepository.GetClientByIdAsync(id);
         if (client == null) throw new NotFoundException("Client does not exist.");
         
         var trips = await _tripsDbRepository.GetTripsByClientIdAsync(id);
@@ -52,28 +52,28 @@ public class DbService : IDbService
 
     public async Task AddClientToTripAsync(int id, int tripId)
     {
-        var client = await _tripsDbRepository.GetClientById(id);
+        var client = await _tripsDbRepository.GetClientByIdAsync(id);
         if (client == null) throw new NotFoundException("Client does not exist.");
-        var trip = await _tripsDbRepository.GetTripById(tripId);
+        var trip = await _tripsDbRepository.GetTripByIdAsync(tripId);
         if (trip == null) throw new NotFoundException("Trip does not exist.");
-        var clientsInTrip = await _tripsDbRepository.GetPersonCountByTripId(id);  
+        var clientsInTrip = await _tripsDbRepository.GetPersonCountByTripIdAsync(tripId);  
         if (clientsInTrip >= trip.MaxPeople) throw new BadRequestException("Trip is full.");
         if (await _tripsDbRepository.GetClient_TripAsync(id,tripId) != null)
         {
            throw new BadRequestException("Client is already in trip.");
         }
-        _tripsDbRepository.AddClientToTripAsync(id,tripId);
+        await _tripsDbRepository.AddClientToTripAsync(id,tripId);
     }
 
     public async Task RemoveClientFromTripAsync(int id, int tripId)
     {   
-        var client = await _tripsDbRepository.GetClientById(id);
+        var client = await _tripsDbRepository.GetClientByIdAsync(id);
         if (client == null) throw new NotFoundException("Client does not exist.");
-        var trip = await _tripsDbRepository.GetTripById(tripId);
+        var trip = await _tripsDbRepository.GetTripByIdAsync(tripId);
         if (trip == null) throw new NotFoundException("Trip does not exist.");
         var clientTrp = await _tripsDbRepository.GetClient_TripAsync(id,tripId);
         if (clientTrp == null) throw new NotFoundException("Client is not in trip.");
        
-         _tripsDbRepository.RemoveClientFromTripAsync(id,tripId);
+        await _tripsDbRepository.RemoveClientFromTripAsync(id,tripId);
     }
 }

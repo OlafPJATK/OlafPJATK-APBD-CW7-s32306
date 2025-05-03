@@ -9,10 +9,10 @@ public interface ITripsDbRepository
 {
     Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync(); 
     Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id);
-    Task<Client> GetClientById(int id);
+    Task<Client> GetClientByIdAsync(int id);
     Task<Client> CreateClientAsync(ClientCreateDTO client);
-    Task<Trip> GetTripById(int id);
-    Task<Int32> GetPersonCountByTripId(int id);
+    Task<Trip> GetTripByIdAsync(int id);
+    Task<Int32> GetPersonCountByTripIdAsync(int id);
     Task AddClientToTripAsync(int idClient, int idTrip);
     Task<Client_TripGetDTO> GetClient_TripAsync(int idClient, int idTrip);
     Task RemoveClientFromTripAsync(int idClient, int idTrip);
@@ -111,7 +111,7 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
     }
 
     // Sprawdza, czy klient o danym ID istnieje
-    public async Task<Client> GetClientById(int id)
+    public async Task<Client> GetClientByIdAsync(int id)
     {
         await using var connection = new SqlConnection(_connectionString);
 
@@ -163,7 +163,7 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
     }
 
     // Pobiera dane wycieczki na podstawie ID
-    public async Task<Trip> GetTripById(int id)
+    public async Task<Trip> GetTripByIdAsync(int id)
     {
         await using var connection = new SqlConnection(_connectionString);
 
@@ -185,7 +185,7 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
     }
 
     // Zwraca liczbę klientów przypisanych do danej wycieczki
-    public async Task<Int32> GetPersonCountByTripId(int id)
+    public async Task<Int32> GetPersonCountByTripIdAsync(int id)
     {
         await using var connection = new SqlConnection(_connectionString);
 

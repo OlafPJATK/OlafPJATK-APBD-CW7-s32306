@@ -4,7 +4,6 @@ namespace APBD_CW_API2.Models.DTOs;
 
 public class ClientCreateDTO
 {
-    [Required]
     public int IdClient { get; set; }
     [Required]
     [Length(1, 120)]
