@@ -7,11 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd33c8dc-beb6-43ad-b73f-d3f0dc44ed80" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/APBD-CW-API2/Exceptions/BadRequestException.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APBD-CW-API2/Models/Client_Trip.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/APBD-CW-API2/Models/DTOs/Client_TripGetDTO.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="cd33c8dc-beb6-43ad-b73f-d3f0dc44ed80" name="Changes" comment="4. cale">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.APBD-CW-API2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/Controllers/ClientsController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/Controllers/ClientsController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/Repositories/TripsDbRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/Repositories/TripsDbRepository.cs" afterDir="false" />
@@ -21,13 +17,11 @@
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/bin/Debug/net9.0/APBD-CW-API2.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/APBD-CW-API2.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/apphost.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/ref/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/ref/APBD-CW-API2.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/refint/APBD-CW-API2.dll" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/Debug/net9.0/refint/APBD-CW-API2.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/APBD-CW-API2/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/APBD-CW-API2/obj/rider.project.model.nuget.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 5
 }]]></component>
@@ -89,12 +84,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1746254501856</updated>
-      <workItem from="1746254502908" duration="4726000" />
+      <workItem from="1746254502908" duration="7345000" />
     </task>
+    <task id="LOCAL-00001" summary="4. cale">
+      <option name="closed" value="true" />
+      <created>1746260321456</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1746260321456</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="4. cale" />
+    <option name="LAST_COMMIT_MESSAGE" value="4. cale" />
+  </component>
 </project>

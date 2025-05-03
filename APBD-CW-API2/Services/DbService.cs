@@ -13,6 +13,7 @@ public interface IDbService
     Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync();
     Task<Client> CreateClientAsync(ClientCreateDTO client);
     Task AddClientToTripAsync(int id, int tripId);
+    Task RemoveClientFromTripAsync(int id, int tripId);
     
 }
 
@@ -25,7 +26,7 @@ public class DbService : IDbService
        _tripsDbRepository = tripsDbRepository;
    }
 
-   public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id)
+   public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id) 
     {
         var client = await _tripsDbRepository.GetClientById(id);
         if (client == null) throw new NotFoundException("Client does not exist.");
@@ -45,6 +46,7 @@ public class DbService : IDbService
 
     public async Task<Client> CreateClientAsync(ClientCreateDTO client)
     {
+        
         return await _tripsDbRepository.CreateClientAsync(client);
     }
 
@@ -61,5 +63,17 @@ public class DbService : IDbService
            throw new BadRequestException("Client is already in trip.");
         }
         _tripsDbRepository.AddClientToTripAsync(id,tripId);
+    }
+
+    public async Task RemoveClientFromTripAsync(int id, int tripId)
+    {   
+        var client = await _tripsDbRepository.GetClientById(id);
+        if (client == null) throw new NotFoundException("Client does not exist.");
+        var trip = await _tripsDbRepository.GetTripById(tripId);
+        if (trip == null) throw new NotFoundException("Trip does not exist.");
+        var clientTrp = await _tripsDbRepository.GetClient_TripAsync(id,tripId);
+        if (clientTrp == null) throw new NotFoundException("Client is not in trip.");
+       
+         _tripsDbRepository.RemoveClientFromTripAsync(id,tripId);
     }
 }

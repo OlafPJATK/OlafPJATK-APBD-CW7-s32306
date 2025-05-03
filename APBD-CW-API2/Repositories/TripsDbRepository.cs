@@ -15,6 +15,8 @@ public interface ITripsDbRepository
     Task<Int32> GetPersonCountByTripId(int id);
     Task AddClientToTripAsync(int idClient, int idTrip);
     Task<Client_TripGetDTO> GetClient_TripAsync(int idClient, int idTrip);
+    Task RemoveClientFromTripAsync(int idClient, int idTrip);
+    
 }
 
 public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
@@ -187,5 +189,16 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
                RegisteredAt = reader.GetInt32(2),
                PaymentDate = reader.IsDBNull(3) ? null : reader.GetInt32(3)
            }:null;
+    }
+
+    public async Task RemoveClientFromTripAsync(int idClient, int idTrip)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "delete Client_Trip where IdClient=@idClient AND IdTrip=@idTrip";
+        await using var command = new SqlCommand(sql, connection);
+        command.Parameters.AddWithValue("@idClient", idClient);
+        command.Parameters.AddWithValue("@idTrip", idTrip);
+        await connection.OpenAsync();
+        await command.ExecuteNonQueryAsync();
     }
 }
