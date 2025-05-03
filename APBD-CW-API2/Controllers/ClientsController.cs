@@ -20,4 +20,13 @@ public class ClientsController(IDbService dbService) : ControllerBase
         var client = await dbService.CreateClientAsync(body);
         return Created($"clients/{client.IdClient}", client);
     }
+
+    [HttpPut("{id}/trips/{tripId}")]
+    public async Task<IActionResult> AddClientToTrip([FromRoute] int id, [FromRoute] int tripId)
+    {
+        await dbService.AddClientToTripAsync(id, tripId);
+        return Created($"/clients/{id}/trips/{tripId}", 
+            new { Message = $"Dodano klienta {id} do wycieczki {tripId}." });
+    }
+
 }

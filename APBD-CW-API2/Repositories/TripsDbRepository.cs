@@ -9,14 +9,21 @@ public interface ITripsDbRepository
 {
     Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync(); 
     Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id);
-    
     Task<Client> GetClientById(int id);
     Task<Client> CreateClientAsync(ClientCreateDTO client);
+    Task<Trip> GetTripById(int id);
+    Task<Int32> GetPersonCountByTripId(int id);
+    Task AddClientToTripAsync(int idClient, int idTrip);
+    Task<Client_TripGetDTO> GetClient_TripAsync(int idClient, int idTrip);
 }
 
 public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
 {
     private readonly string? _connectionString=config.GetConnectionString("Default");
+    
+    
+    
+    
     public async Task<IEnumerable<TripCountryGetDTO>> GetAllTripsAsync()
     {
         var result = new List<TripCountryGetDTO>();
@@ -46,8 +53,6 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
         }
         return result;
     }
-    
-    
     public async Task<IEnumerable<TripByClientIdGetDTO>> GetTripsByClientIdAsync(int id)
     {
         var result = new List<TripByClientIdGetDTO>();
@@ -82,8 +87,6 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
         }
         return result;
     }
-    
-    
     public async Task<Client> GetClientById(int id)
     {
         await using var connection = new SqlConnection(_connectionString);
@@ -99,7 +102,6 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
            
         } : null;
     }
-
     public async Task<Client> CreateClientAsync(ClientCreateDTO client)
     {
         await using var connection = new SqlConnection(_connectionString);
@@ -124,5 +126,66 @@ public class TripsDbRepository(IConfiguration config) : ITripsDbRepository
             Pesel = client.Pesel
 
         };
+    }
+    public async Task<Trip> GetTripById(int id)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "select * from Trip where IdTrip=@id";
+        await using var command = new SqlCommand(sql, connection);
+        await connection.OpenAsync();
+        command.Parameters.AddWithValue("@id", id);
+        await using var reader = await command.ExecuteReaderAsync();
+        return await reader.ReadAsync() ? new Trip
+        {
+            IdTrip = reader.GetInt32(0),
+            Name = reader.GetString(1),
+            Description = reader.GetString(2),
+            DateFrom = reader.GetDateTime(3),
+            DateTo = reader.GetDateTime(4),
+            MaxPeople = reader.GetInt32(5)
+        } : null;
+    }
+
+    public async Task<Int32> GetPersonCountByTripId(int id)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "SELECT COUNT(*) AS LiczbaUczestnikow\nFROM Client_Trip\nWHERE IdTrip = 5;";
+        await using var command = new SqlCommand(sql, connection);
+        await connection.OpenAsync();
+        command.Parameters.AddWithValue("@id", id);
+        await using var reader = await command.ExecuteReaderAsync();
+        return await reader.ReadAsync() ? reader.GetInt32(0) : 0;
+    }
+
+    public async Task AddClientToTripAsync(int idClient, int idTrip)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "INSERT INTO Client_Trip (IdClient, IdTrip, RegisteredAt, PaymentDate)\nVALUES (\n   "
+                           +" @IdClient,\n    @IdTrip,\n  " 
+        +"CAST(CONVERT(VARCHAR(8), GETDATE(), 112) AS INT),\n    NULL\n);\n";
+        await using var command = new SqlCommand(sql, connection);
+        
+        await connection.OpenAsync();
+        command.Parameters.AddWithValue("@IdClient", idClient);
+        command.Parameters.AddWithValue("@IdTrip", idTrip);
+        await command.ExecuteNonQueryAsync();
+    }
+    public async Task<Client_TripGetDTO> GetClient_TripAsync(int idClient, int idTrip)
+    {
+        await using var connection = new SqlConnection(_connectionString);
+        const string sql = "SELECT *\nFROM Client_Trip\nWHERE IdClient = @idClient AND IdTrip = @idTrip;\n";
+        await using var command = new SqlCommand(sql, connection);
+        await connection.OpenAsync();
+        command.Parameters.AddWithValue("@idClient", idClient);
+        command.Parameters.AddWithValue("@idTrip", idTrip);
+        await using var reader = await command.ExecuteReaderAsync();
+        return await reader.ReadAsync() ? 
+           new Client_TripGetDTO
+           {
+               IdClient = reader.GetInt32(0),
+               IdTrip = reader.GetInt32(1),
+               RegisteredAt = reader.GetInt32(2),
+               PaymentDate = reader.IsDBNull(3) ? null : reader.GetInt32(3)
+           }:null;
     }
 }
